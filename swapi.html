@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <link rel="stylesheet" type="text/css" href="../3PP0/css/swapi.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class='fade'></div>
+    <section class="star-wars">
+        <div class="crawl">
+          <div class="title">
+        <h1>Star Wars Intro Text Guess the Film</h1>
+
+        <p><span id="crawl"></span></p>
+           </div>
+        </div>
+    </section>
+    
+    <script>
+
+        const url = ('https://swapi.dev/api/films/');
+
+
+        const crAwl = async() => {
+            const rand = Math.floor(Math.random() * 6 + 1);
+            const urlFetch = url + rand;
+            console.log(urlFetch);
+            const response = await fetch(urlFetch);
+            try{
+                if(response.ok){
+                    const responseJson = await response.json();
+                    console.log(responseJson.opening_crawl);
+                    document.getElementById('crawl').innerHTML = responseJson.opening_crawl;
+                    return responseJson;
+                }
+                throw new Error('failed');
+            }catch(error){
+                console.log(error.message);
+            }
+        };
+
+        crAwl();
+    </script>
+</body>
+</html>
